@@ -1,0 +1,47 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class MatchingGame {
+
+    public static void main(String[] args) {
+        // Vytvoření mapy pojmů a odpovědí
+        HashMap<String, String> pairs = new HashMap<>();
+        pairs.put("Pes", "Zvíře");
+        pairs.put("Jablko", "Ovoce");
+        pairs.put("Auto", "Dopravní prostředek");
+        pairs.put("Růže", "Květina");
+
+        // Hra začíná
+        System.out.println("Vítej ve hře! Přiřaď správně pojmy k odpovědím.");
+        System.out.println("Zadej odpověď podle následujícího příkladu: 'Jablko -> Ovoce'");
+        System.out.println("----------------------------------------------------------");
+
+        // Skenování odpovědí hráče
+        Scanner scanner = new Scanner(System.in);
+        int correctAnswers = 0;
+
+        for (String term : pairs.keySet()) {
+            System.out.println("K pojmu: " + term + ", co přiřadíš?");
+            String input = scanner.nextLine();
+
+            // Rozdělení vstupu na část před "->" a po "->"
+            String[] parts = input.split("->");
+            if (parts.length == 2) {
+                String userAnswer = parts[1].trim();
+                if (pairs.get(term).equalsIgnoreCase(userAnswer)) {
+                    System.out.println("Správně!");
+                    correctAnswers++;
+                } else {
+                    System.out.println("Špatně! Správná odpověď byla: " + pairs.get(term));
+                }
+            } else {
+                System.out.println("Chybný formát! Použij '->' mezi pojmem a odpovědí.");
+            }
+        }
+
+        // Konec hry
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Hra skončila. Správné odpovědi: " + correctAnswers + "/" + pairs.size());
+        scanner.close();
+    }
+}
